@@ -77,8 +77,21 @@ export default function Home() {
   }
 
   function stopMusic() {
-    audioRef.current?.pause();
-  }
+  if (!audioRef.current) return;
+
+  const fade = setInterval(() => {
+    if (audioRef.current && audioRef.current.volume > 0.05) {
+      audioRef.current.volume -= 0.05;
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.volume = 1;
+      }
+      clearInterval(fade);
+    }
+  }, 100);
+}
+
 
   function pop() {
   confetti({
@@ -536,6 +549,7 @@ export default function Home() {
           </div>
         </section>
       )}
+      
 
       {/* Animations (global) */}
       <style jsx global>{`
@@ -601,6 +615,10 @@ export default function Home() {
         .btn-vibe:active::after {
           opacity: 1;
           transform: scale(1);
+      }
+        .btn-vibe:hover {
+          box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+          transform: translateY(-1px);
      }
 
  
