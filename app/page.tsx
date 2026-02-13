@@ -80,6 +80,15 @@ export default function Home() {
     audioRef.current?.pause();
   }
 
+  function pop() {
+  confetti({
+    particleCount: 18,
+    spread: 45,
+    startVelocity: 18,
+    origin: { y: 0.8 },
+  });
+}
+
   return (
     <main className="w-screen h-screen overflow-hidden">
       {/* ========== OPENING ========== */}
@@ -110,7 +119,7 @@ export default function Home() {
 
             <button
               onClick={startExperience}
-              className="rounded-2xl px-7 py-3 font-semibold bg-[#F7EEE7] text-[#3D2A22] hover:opacity-90"
+              className="btn-vibe rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
             >
               Open 🎁
             </button>
@@ -142,7 +151,7 @@ export default function Home() {
             <div className="flex justify-center">
               <button
                 onClick={() => setStage("letter")}
-                className="rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
+                className="btn-vibe rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
               >
                 Next →
               </button>
@@ -203,7 +212,7 @@ export default function Home() {
             <div className="mt-6 flex justify-center gap-3">
               <button
                 onClick={() => setStage("message")}
-                className="rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
+                className="btn-vibe rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
               >
                 Next →
               </button>
@@ -349,7 +358,7 @@ export default function Home() {
                         setShowPopup(false);
                         setStage("goodnight");
                       }}
-                      className="rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
+                      className="btn-vibe rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
                     >
                       End ✨
                     </button>
@@ -412,7 +421,7 @@ export default function Home() {
 
               <button
                 onClick={() => setStage("goodnight")}
-                className="rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
+                className="btn-vibe rounded-2xl px-6 py-3 font-semibold bg-[#3D2A22] text-[#FAF3EE]"
               >
                 Next →
               </button>
@@ -567,6 +576,43 @@ export default function Home() {
           }
         }
       `}</style>
+      
+      <style jsx global>{`
+        .btn-vibe {
+          position: relative;
+          overflow: hidden;
+          transform: translateZ(0);
+          transition: transform 120ms ease, filter 120ms ease;
+      }
+        .btn-vibe:active {
+          transform: scale(0.98);
+          filter: brightness(0.98);
+      }
+        .btn-vibe::after {
+          content: "";
+          position: absolute;
+          inset: -40px;
+          background: radial-gradient(circle, rgba(255,255,255,0.35), transparent 55%);
+          opacity: 0;
+          transform: scale(0.6);
+          transition: opacity 200ms ease, transform 200ms ease;
+          pointer-events: none;
+      }
+        .btn-vibe:active::after {
+          opacity: 1;
+          transform: scale(1);
+     }
+
+ 
+     @keyframes fadeUp {
+       from { opacity: 0; transform: translateY(10px); }
+       to { opacity: 1; transform: translateY(0); }
+     }
+     .page-enter {
+       animation: fadeUp 260ms ease both;
+     }
+   `}</style>
+
     </main>
   );
 }
